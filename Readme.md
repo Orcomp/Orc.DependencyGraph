@@ -12,8 +12,9 @@ The goal of this library is to make it easy to:
 - Sort the nodes in topological order
 
 ## Naming Convention
-- Descendant. i.e. What descends from or comes after: Child
+- Descendants. i.e. What descends from or comes after: Child
 - Precedents. i.e What precedes, or comes before: Parent
+- Level. We consider level as topological level of the node. I.e. Level 1 consists of nodes whose Precedents are of Level 0. In general level is the longest path from the node to the root of the graph.
 
 ## Interface
 
@@ -74,7 +75,7 @@ The goal of this library is to make it easy to:
 
 **Note:**
 - All the methods return an ordered enumerable of INode. The ordering is based on the "level" of the node. (Within a level the ordering is not important.)
-- If possible the methods should return all the INodes lazily.
+- If possible the methods returns all the INodes lazily.
 - A Node object has a reference to the Graph object.
 
 
@@ -115,16 +116,17 @@ Critical path method O(V+E)
 
 #####NOTE:
 - The root nodes are 11 and 12.
-- This graph has 6 levels. (The root nodes have a level value equal to 0. In this example it corresponds to Level1. i.e. Level1's level = 0)
-- Level1 contains nodes 11, 12. Level2 contains nodes 21, 22, 23, 24, 25, 26, 27
+- The leaf nodes are 61 and 62
+- This graph has 6 levels.
+- The root nodes have a level value equal to 0
 
 ### Create Graph Structure
 
 ```C#
 	new Graph(new []
 	{
-		new[] {51, 61},
-		new[] {51, 62},
+		new[] {11, 27, 32},
+		new[] {12, 27},
 		// etc....
 	});
 ```
@@ -135,8 +137,8 @@ Or
     var graph = new Graph();
     graph.AddRange(new []
     {
-        new[] {51, 61},
-        new[] {51, 62},
+        new[] {11, 27, 32},
+        new[] {12, 27},
 		// etc....
     });
 ```
@@ -192,13 +194,10 @@ Or
 ## POIs
 
 - There are some ways how we can improve CanSort(sequence) method:
- - We can copy graph much faster if we will find relations using temporary array and node.Key.
- - We can track changes, which were made to graph and UnDo them after the sorting.
-- We can re-implement Compute Level algorithm with an idea of Relative Node.
+- We can copy graph much faster if we will find relations using temporary array and node.Key.
+- We can track changes, which were made to graph and UnDo them after the sorting.
 
 ## Links
 
 - http://msdn.microsoft.com/en-us/library/ms379574(v=vs.80).aspx
-- http://www.geeksforgeeks.org/find-longest-path-directed-acyclic-graph/
-- http://en.wikipedia.org/wiki/Longest_path_problem
 - http://en.wikipedia.org/wiki/Critical_path_method
