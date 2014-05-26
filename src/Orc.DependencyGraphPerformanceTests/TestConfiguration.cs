@@ -1,19 +1,24 @@
 ﻿using System;
-using NUnitBenchmarker.Benchmark.Configuration;
+
 
 namespace Orc.DependencyGraphPerformanceTests
 {
-    public class TestConfiguration : PerformanceTestCaseConfigurationBase
+	using DependencyGraph;
+	using NUnitBenchmarker.Configuration;
+
+	public class TestConfiguration : PerformanceTestCaseConfigurationBase
     {
         public string TestFile { get; set; }
         public int Levels { get; set; }
         public int Descendants { get; set; }
         public int Precedents { get; set; }
         public Type GraphType { get; set; }
+		public int[][] SequencesToAdd { get; set; }
+		public IGraph<int> Graph { get; set; }
 
-        public TestConfiguration(string identifier, Type graphType, int levels, int descendants, int precedents, bool last = false)
+		public TestConfiguration(string identifier, Type graphType, int levels, int descendants, int precedents, bool last = false)
         {
-            Identifier = identifier;
+			Identifier = identifier;
             GraphType = graphType;
             Levels = levels;
             Descendants = descendants;

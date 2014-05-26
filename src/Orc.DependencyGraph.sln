@@ -1,16 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orc.DependencyGraph", "Orc.DependencyGraph\Orc.DependencyGraph.csproj", "{DF5E12B3-3765-4D82-86D6-2B7121432B0E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orc.DependencyGraphTests", "Orc.DependencyGraphTests\Orc.DependencyGraphTests.csproj", "{5DA1D7A5-DE18-44B5-89C9-9EB43ACF191D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D81EBC5E-D321-4490-A05E-D39263E80EAF}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orc.DependencyGraphPerformanceTests", "Orc.DependencyGraphPerformanceTests\Orc.DependencyGraphPerformanceTests.csproj", "{1B846C6E-7C93-48DF-8077-7FC828F1B35B}"
 EndProject
