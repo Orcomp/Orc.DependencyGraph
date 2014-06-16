@@ -34,6 +34,7 @@ namespace Orc.DependencyGraphTests
                 new[] {2,3},
                 new[] {3,4},
                 new[] {4,5},
+				new[] {1,2,3,4,5},
             });
         }
 
@@ -57,6 +58,8 @@ namespace Orc.DependencyGraphTests
                 new[] {12,13},
                 new[] {13,14},
                 new[] {14, 5},
+				new [] {11,12,13,14, 5},
+				new [] { 1, 2, 3, 4, 5},
             });
         }
 
@@ -93,7 +96,8 @@ namespace Orc.DependencyGraphTests
                 new[] {5,6},
                 new[] {6,7},
                 new[] {7,8},
-                new[] {8,9},
+				new[] {8,9},
+				new[] {0,1,2,3,4,5,6,7,8,9},
             });
             GraphTestHelper.AssertConsistsOfBackSequences(target, new[]
             {
@@ -106,6 +110,7 @@ namespace Orc.DependencyGraphTests
                 new[] {7,6},
                 new[] {8,7},
                 new[] {9,8},
+				new[] {9,8,7,6,5,4,3,2,1,0},
             });
         }
 
@@ -120,7 +125,10 @@ namespace Orc.DependencyGraphTests
         [Test]
         public void AddAddsExistingSequence()
         {
+			// {41, 51, 61, 100},
+			// {42, 52, 62, 100},
             var graph = GraphTestHelper.CreateSimpleGraph(TargetGraph);
+			Assert.AreEqual(7, graph.CountNodes);
             graph.AddSequence(new[] {51, 61});
             graph.AddSequence(new[] {42, 52});
             Assert.AreEqual(7, graph.CountNodes);
@@ -133,6 +141,8 @@ namespace Orc.DependencyGraphTests
                 new[] {42, 52},
                 new[] {52, 62},
                 new[] {62,100},
+				new[] {41, 51, 61, 100},
+				new[] {42, 52, 62, 100},
             });
 
         }
@@ -155,6 +165,8 @@ namespace Orc.DependencyGraphTests
                 new[] {42, 52},
                 new[] {52, 62},
                 new[] {62,100},
+				new[] {41, 51, 61, 100},
+				new[] {42, 52, 62, 100},
             });
         }
 
@@ -167,7 +179,10 @@ namespace Orc.DependencyGraphTests
         [Test]
         public void CanSortReturnsWhetherGraphCanBeSorted2()
         {
+			// {41, 51, 61, 100},
+			// {42, 52, 62, 100},
             var graph = GraphTestHelper.CreateSimpleGraph(TargetGraph);
+			Assert.True(graph.CanSort());
             graph.AddSequences(new[]
             {
                 new[] {100, 41},

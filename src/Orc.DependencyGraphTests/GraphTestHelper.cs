@@ -1,10 +1,11 @@
 ﻿using System;
-using Fasterflect;
+//using Fasterflect;
 
 namespace Orc.DependencyGraphTests
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Fasterflect;
     using NUnit.Framework;
     using Orc.DependencyGraph;
 
@@ -62,16 +63,22 @@ namespace Orc.DependencyGraphTests
         {
             foreach (var sequence in sequences)
             {
-                var node = graph.Find(sequence[0]);
-                Assert.AreEqual(1, node.ImmediateDescendants.Count(x => x.Value == sequence[1]));
+	            for (int index = 0; index < sequence.Length-1; index++)
+	            {
+					var node = graph.Find(sequence[index]);
+					Assert.AreEqual(1, node.ImmediateDescendants.Count(x => x.Value == sequence[index + 1]));
+	            }
             }
         }
         public static void AssertConsistsOfBackSequences(IGraph<int> graph, int[][] sequences)
         {
             foreach (var sequence in sequences)
             {
-                var node = graph.Find(sequence[0]);
-                Assert.AreEqual(1, node.ImmediatePrecedents.Count(x => x.Value == sequence[1]));
+	            for (int index = 0; index < sequence.Length - 1; index++)
+	            {
+		            var node = graph.Find(sequence[index]);
+		            Assert.AreEqual(1, node.ImmediatePrecedents.Count(x => x.Value == sequence[index + 1]));
+	            }
             }
         }
 
@@ -91,6 +98,7 @@ namespace Orc.DependencyGraphTests
         public static void AssertCollectionsConsistsOfNodes(ICollection<int> expectedNodes, IEnumerable<INode<int>> nodes)
         {
             var count = 0;
+
             foreach (var node in nodes)
             {
                 Assert.IsTrue(expectedNodes.Contains(node.Value),
