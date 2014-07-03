@@ -13,16 +13,16 @@ namespace Orc.DependencyGraph.GraphB
         protected List<int> levelList;
 
         public GraphB()
-            :this(false, false)
+            :this(false, false, 0)
         {
         }
 
-        public GraphB(bool usesPriority, bool usesTracking)
+        public GraphB(bool usesPriority, bool usesTracking, int capacity)
             : base(usesPriority, usesTracking)
         {
-            this.graphList = new List<INode<T>>();
-            this.graphSort = new List<INode<T>>();
-            this.levelList = new List<int>();
+            this.graphList = new List<INode<T>>(capacity);
+            this.graphSort = new List<INode<T>>(capacity);
+            this.levelList = new List<int>(capacity);
         }
 
         public bool CanSort()
@@ -38,29 +38,56 @@ namespace Orc.DependencyGraph.GraphB
         {
             base.Add(sequence);
 
-            int node_level = 0;
+            int node_level = -1;
 
             foreach (var node in sequence)
             {
-                int key = NodeKey(node);
+                int key = this.NodeKey(node);
 
-                if (this.levelList[key] == -1)
+                if (this.graphList.Count <= key)
                 {
-                    this.levelList[key] = node_level;
+                    this.graphList.Add(new Node<T>(this, key));
+                    this.levelList.Add(node_level + 1);
                 }
-                else if (this.levelList[key] < node_level)
-                {
-                    int level_delta = node_level - this.levelList[key];
-                    this.levelList[key] = node_level;
 
-                    foreach (int dep in GetDependents(key, false, false))
+                node_level = this.levelList[key];
+            }
+
+            int key_next = 0;
+            int key_prev = this.NodeKey(sequence.First());
+
+            foreach (var node in sequence.Skip(1))
+            {
+                key_next = this.NodeKey(node);
+
+                int lvl_diff = this.levelList[key_prev] - this.levelList[key_next] + 1;
+                int lvl_root = 0;
+
+                if (lvl_diff > 0)
+                {
+                    this.levelList[key_prev] -= lvl_diff;
+                    lvl_root = Math.Min(lvl_root, this.levelList[key_prev]);
+
+                    foreach (int key_prec in this.GetPrecedents(key_prev, false, false))
                     {
-                        this.levelList[dep] += level_delta;
+                        this.levelList[key_prec] -= lvl_diff;
+                        lvl_root = Math.Min(lvl_root, this.levelList[key_prec]);
                     }
                 }
 
-                node_level = this.levelList[key] + 1;
+                if (lvl_root < 0)
+                {
+                    for (int key = 0; key < this.levelList.Count; key++)
+                    {
+                        this.levelList[key] -= lvl_root;
+                    }
+                }
+
+                key_prev = key_next;
             }
+
+            this.levelList[key_next] = this.GetPrecedents(key_next, true, false).Max(i => this.levelList[i]) + 1;
+
         }
 
         public void AddSequences(IEnumerable<IEnumerable<T>> sequences)
@@ -126,8 +153,8 @@ namespace Orc.DependencyGraph.GraphB
 
             return new OrderedEnumerable<INode<T>>(() => this.graphSort);
         }
-
-        protected int NodeKey(T node)
+        /*
+        protected override int NodeKey(T node)
         {
             int key = base.NodeKey(node);
 
@@ -139,32 +166,30 @@ namespace Orc.DependencyGraph.GraphB
 
             return key;
         }
-
+        */
         public class Node<N> : INode<N>
             where N : IEquatable<N>
         {
             public Node(GraphB<N> graph, int index)
             {
-                this.GraphB = graph;
-                this.typedGraphList = graph.graphList;
+                this.Graph = graph;
                 this.key = index;
             }
 
             private int key;
-            private IList<INode<N>> typedGraphList;
 
-            public N Value { get { return this.GraphB.nodesList[this.key]; } }
+            public N Value { get { return this.Graph.nodesList[this.key]; } }
 
-            public GraphB<N> GraphB { get; private set; }
+            public GraphB<N> Graph { get; private set; }
 
-            public int Level { get { return this.GraphB.levelList[this.key]; } }
+            public int Level { get { return this.Graph.levelList[this.key]; } }
 
             public IOrderedEnumerable<INode<N>> GetNeighbours(int relativeLevelFrom, int relativeLevelTo)
             {
                 int levelFrom = this.Level + relativeLevelFrom;
                 int levelTo = this.Level + relativeLevelTo;
 
-                return this.GraphB.GetNodesBetween(levelFrom, levelTo);
+                return this.Graph.GetNodesBetween(levelFrom, levelTo);
             }
 
             // relativeLevel < 0
@@ -172,7 +197,7 @@ namespace Orc.DependencyGraph.GraphB
             {
                 get
                 {
-                    return new OrderedEnumerable<INode<N>>(() => this.GraphB.GetPrecedents(this.key, false, false).Select(i => this.typedGraphList[i]));
+                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetPrecedents(this.key, false, false).Select(i => this.Graph.graphList[i]));
                 }
             }
 
@@ -181,7 +206,7 @@ namespace Orc.DependencyGraph.GraphB
             {
                 get
                 {
-                    return new OrderedEnumerable<INode<N>>(() => this.GraphB.GetDependents(this.key, false, false).Select(i => this.typedGraphList[i]));
+                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetDependents(this.key, false, false).Select(i => this.Graph.graphList[i]));
                 }
             }
 
@@ -190,7 +215,7 @@ namespace Orc.DependencyGraph.GraphB
             {
                 get
                 {
-                    return new OrderedEnumerable<INode<N>>(() => this.GraphB.GetPrecedents(this.key, true, false).Select(i => this.typedGraphList[i]));
+                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetPrecedents(this.key, true, false).Select(i => this.Graph.graphList[i]));
                 }
             }
 
@@ -199,7 +224,7 @@ namespace Orc.DependencyGraph.GraphB
             {
                 get
                 {
-                    return new OrderedEnumerable<INode<N>>(() => this.GraphB.GetDependents(this.key, true, false).Select(i => this.typedGraphList[i]));
+                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetDependents(this.key, true, false).Select(i => this.Graph.graphList[i]));
                 }
             }
 
@@ -208,7 +233,7 @@ namespace Orc.DependencyGraph.GraphB
             {
                 get
                 {
-                    return new OrderedEnumerable<INode<N>>(() => this.GraphB.GetPrecedents(this.key, false, true).Select(i => this.typedGraphList[i]));
+                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetPrecedents(this.key, false, true).Select(i => this.Graph.graphList[i]));
                 }
             }
 
@@ -217,7 +242,7 @@ namespace Orc.DependencyGraph.GraphB
             {
                 get
                 {
-                    return new OrderedEnumerable<INode<N>>(() => this.GraphB.GetDependents(this.key, false, true).Select(i => this.typedGraphList[i]));
+                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetDependents(this.key, false, true).Select(i => this.Graph.graphList[i]));
                 }
             }
 
@@ -225,10 +250,10 @@ namespace Orc.DependencyGraph.GraphB
             {
                 get
                 {
-                    if (this.key + 1 >= this.typedGraphList.Count)
+                    if (this.key + 1 >= this.Graph.graphList.Count)
                         return null;
                     else
-                        return this.typedGraphList[this.key + 1];
+                        return this.Graph.graphList[this.key + 1];
                 }
             }
 
@@ -239,7 +264,7 @@ namespace Orc.DependencyGraph.GraphB
                     if (this.key - 1 < 0)
                         return null;
                     else
-                        return this.typedGraphList[this.key - 1];
+                        return this.Graph.graphList[this.key - 1];
                 }
             }
 
