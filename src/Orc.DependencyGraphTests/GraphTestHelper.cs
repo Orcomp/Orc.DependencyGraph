@@ -63,22 +63,22 @@ namespace Orc.DependencyGraphTests
         {
             foreach (var sequence in sequences)
             {
-	            for (int index = 0; index < sequence.Length-1; index++)
-	            {
-					var node = graph.Find(sequence[index]);
-					Assert.AreEqual(1, node.ImmediateDescendants.Count(x => x.Value == sequence[index + 1]));
-	            }
+                for (int index = 0; index < sequence.Length-1; index++)
+                {
+                    var node = graph.Find(sequence[index]);
+                    Assert.AreEqual(1, node.ImmediateDescendants.Count(x => x.Value == sequence[index + 1]));
+                }
             }
         }
         public static void AssertConsistsOfBackSequences(IGraph<int> graph, int[][] sequences)
         {
             foreach (var sequence in sequences)
             {
-	            for (int index = 0; index < sequence.Length - 1; index++)
-	            {
-		            var node = graph.Find(sequence[index]);
-		            Assert.AreEqual(1, node.ImmediatePrecedents.Count(x => x.Value == sequence[index + 1]));
-	            }
+                for (int index = 0; index < sequence.Length - 1; index++)
+                {
+                    var node = graph.Find(sequence[index]);
+                    Assert.AreEqual(1, node.ImmediatePrecedents.Count(x => x.Value == sequence[index + 1]));
+                }
             }
         }
 

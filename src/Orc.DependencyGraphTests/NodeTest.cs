@@ -1,23 +1,27 @@
-﻿using System;
-using System.Linq;
-using Orc.DependencyGraph.GraphB;
-using Orc.DependencyGraph.GraphD;
-
-namespace Orc.DependencyGraphTests
+﻿namespace Orc.DependencyGraphTests
 {
+    using System;
+    using System.Linq;
+
     using NUnit.Framework;
 
-    [TestFixture]
+    using Orc.DependencyGraph.GraphB;
+    using Orc.DependencyGraph.GraphD;
+
+    [TestFixture(typeof(Graph<>))]
+    [TestFixture(typeof(GraphFast<>))]
+    [TestFixture(typeof(GraphB<>))]
     public class NodeTest
     {
+        public NodeTest(Type targetGenericGraph)
+        {
+            TargetGraph = targetGenericGraph.MakeGenericType(typeof(int));
+        }
+
         private Type TargetGraph
         {
-            get
-            {
-                return typeof(Graph<int>);
-//                return typeof(GraphFast<int>);
-//                return typeof(GraphB<int>);
-            }
+            get;
+            set;
         }
 
         [TestCase( 11, 0)]

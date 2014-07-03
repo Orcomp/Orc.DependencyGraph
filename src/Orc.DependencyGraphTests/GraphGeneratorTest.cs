@@ -6,7 +6,6 @@
     using NUnit.Framework;
 
     using Orc.DependencyGraph;
-    using Orc.DependencyGraph.GraphD;
 
     [TestFixture]
     public class GraphGeneratorTest
@@ -47,7 +46,7 @@
         public void GenerateGraphGeneratesCorrectNumberOfNodesAndTheirDescendantsAndPrecedents(
             int expectedNodeCount, int levels, int descendants, int precedents)
         {
-            var target = (Graph<int>)GraphGenerator.GenerateGraph(levels, descendants, precedents);
+            var target = GraphGenerator.GenerateGraph(levels, descendants, precedents);
             Assert.AreEqual(expectedNodeCount, target.CountNodes,
                 "Graph expected to have {0} nodes but has {1}", expectedNodeCount, target.CountNodes);
             this.AssertEveryNodeHasNDescendants(target, descendants);
@@ -57,7 +56,7 @@
         [Test]
         public void GenerateGraphGeneratesVerticalGraphStructure()
         {
-            var target = (Graph<int>)GraphGenerator.GenerateGraph(10, 1, 1);
+            var target = GraphGenerator.GenerateGraph(10, 1, 1);
 
             GraphTestHelper.AssertConsistsOfSequences(target, new[]
             {
@@ -76,7 +75,7 @@
         [Test]
         public void GenerateGraphGeneratesSquareGraphStructure()
         {
-            var target = (Graph<int>)GraphGenerator.GenerateGraph(3, 2, 2);
+            var target = GraphGenerator.GenerateGraph(3, 2, 2);
 
             GraphTestHelper.AssertConsistsOfSequences(target, new[]
             {
@@ -94,7 +93,7 @@
         [Test]
         public void GenerateGraphGeneratesTriangleGraphStructure1()
         {
-            var target = (Graph<int>)GraphGenerator.GenerateGraph(3, 3, 1);
+            var target = GraphGenerator.GenerateGraph(3, 3, 1);
 
             GraphTestHelper.AssertConsistsOfSequences(target, new[]
             {
@@ -116,7 +115,7 @@
         [Test]
         public void GenerateGraphGeneratesTriangleGraphStructure2()
         {
-            var target = (Graph<int>)GraphGenerator.GenerateGraph(3, 2, 4);
+            var target = GraphGenerator.GenerateGraph(3, 2, 4);
 
             GraphTestHelper.AssertConsistsOfSequences(target, new[]
             {
@@ -149,7 +148,7 @@
         [Test]
         public void GenerateGraphGeneratesTriangleGraphStructure1_BackSequencesTest()
         {
-            var target = (Graph<int>)GraphGenerator.GenerateGraph(3, 2, 4);
+            var target = GraphGenerator.GenerateGraph(3, 2, 4);
 
             GraphTestHelper.AssertConsistsOfBackSequences(target, new[]
             {
@@ -183,7 +182,7 @@
         [Test]
         public void GenerateGraphGeneratesBackTriangleGraphStructure1()
         {
-            var target = (Graph<int>)GraphGenerator.GenerateGraph(3, 1, 3);
+            var target = GraphGenerator.GenerateGraph(3, 1, 3);
 
             GraphTestHelper.AssertConsistsOfSequences(target, new[]
             {
@@ -205,7 +204,7 @@
         [Test]
         public void GenerateGraphGeneratesBackTriangleGraphStructure2()
         {
-            var target = (Graph<int>)GraphGenerator.GenerateGraph(3, 4, 2);
+            var target = GraphGenerator.GenerateGraph(3, 4, 2);
 
             GraphTestHelper.AssertConsistsOfSequences(target, new[]
             {
@@ -236,7 +235,7 @@
             });
         }
 
-        private void AssertEveryNodeHasNDescendants(Graph<int> graph, int expectedDescendantCount)
+        private void AssertEveryNodeHasNDescendants(IGraph<int> graph, int expectedDescendantCount)
         {
             foreach (var node in graph.Nodes)
             {
@@ -246,7 +245,7 @@
                     "Number of descendants in the node expected to be {0} but is {1}", expectedDescendantCount, descendentCount);
             }
         }
-        private void AssertEveryNodeHasNPrecedents(Graph<int> graph, int expectedPrecedentsCount)
+        private void AssertEveryNodeHasNPrecedents(IGraph<int> graph, int expectedPrecedentsCount)
         {
             foreach (var node in graph.Nodes)
             {
