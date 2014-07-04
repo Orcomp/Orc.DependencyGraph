@@ -13,7 +13,7 @@ namespace Orc.DependencyGraph.GraphB
         protected List<int> levelList;
 
         public GraphB()
-            :this(false, false, 0)
+            :this(true, false, 0)
         {
         }
 
@@ -27,7 +27,16 @@ namespace Orc.DependencyGraph.GraphB
 
         public bool CanSort()
         {
-            return this.Sort() != null;
+            try
+            {
+                this.Sort();
+            }
+            catch (TopologicalSortException)
+            {
+                return false;
+            }
+            
+            return true;
         }
 
         public int CountNodes { get { return this.graphList.Count; } }
@@ -36,6 +45,18 @@ namespace Orc.DependencyGraph.GraphB
 
         public void AddSequence(IEnumerable<T> sequence)
         {
+            var sequence_count = sequence.Count();
+
+            if (sequence_count == 0)
+            {
+                throw new ArgumentException("Adding failed because sequence cannot be empty.");
+            }
+
+            if (sequence_count == 1)
+            {
+                throw new ArgumentException("Adding failed because sequence cannot contain a single node.");
+            }
+
             base.Add(sequence);
 
             int node_level = -1;
@@ -117,7 +138,7 @@ namespace Orc.DependencyGraph.GraphB
 
         public IOrderedEnumerable<INode<T>> GetNodesBetween(int levelFrom, int levelTo)
         {
-            return new OrderedEnumerable<INode<T>>(() => this.graphList.Where(n => levelFrom <= n.Level && n.Level <= levelTo));
+            return new OrderedEnumerable<INode<T>>(() => this.graphList.Where(n => levelFrom <= n.Level && n.Level <= levelTo).OrderBy(n => n.Level));
         }
 
         public IEnumerable<INode<T>> GetNodesRelatedTo(T node)
@@ -144,7 +165,8 @@ namespace Orc.DependencyGraph.GraphB
 
             if (nodesSort == null)
             {
-                return null;
+            //  return null;
+                throw new TopologicalSortException("Topological sort failed due to loops in the graph");
             }
             else if (nodesSort.Count != this.graphSort.Count)
             {
@@ -189,7 +211,7 @@ namespace Orc.DependencyGraph.GraphB
                 int levelFrom = this.Level + relativeLevelFrom;
                 int levelTo = this.Level + relativeLevelTo;
 
-                return this.Graph.GetNodesBetween(levelFrom, levelTo);
+                return new OrderedEnumerable<INode<N>>(() => this.Graph.GetNodesRelatedTo(this.Value, levelFrom, levelTo).OrderBy(n => n.Level));
             }
 
             // relativeLevel < 0
@@ -197,7 +219,7 @@ namespace Orc.DependencyGraph.GraphB
             {
                 get
                 {
-                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetPrecedents(this.key, false, false).Select(i => this.Graph.graphList[i]));
+                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetPrecedents(this.key, false, false).OrderBy(i => this.Graph.levelList[i]).Select(i => this.Graph.graphList[i]));
                 }
             }
 
@@ -206,7 +228,7 @@ namespace Orc.DependencyGraph.GraphB
             {
                 get
                 {
-                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetDependents(this.key, false, false).Select(i => this.Graph.graphList[i]));
+                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetDependents(this.key, false, false).OrderBy(i => this.Graph.levelList[i]).Select(i => this.Graph.graphList[i]));
                 }
             }
 
@@ -233,7 +255,7 @@ namespace Orc.DependencyGraph.GraphB
             {
                 get
                 {
-                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetPrecedents(this.key, false, true).Select(i => this.Graph.graphList[i]));
+                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetPrecedents(this.key, false, true).OrderBy(i => this.Graph.levelList[i]).Select(i => this.Graph.graphList[i]));
                 }
             }
 
@@ -242,7 +264,7 @@ namespace Orc.DependencyGraph.GraphB
             {
                 get
                 {
-                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetDependents(this.key, false, true).Select(i => this.Graph.graphList[i]));
+                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetDependents(this.key, false, true).OrderBy(i => this.Graph.levelList[i]).Select(i => this.Graph.graphList[i]));
                 }
             }
 

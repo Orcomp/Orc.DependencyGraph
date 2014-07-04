@@ -132,7 +132,7 @@
                 .ToArray();
 
             if (nodes.Length == 1)
-                throw new ArgumentException("AddSequence failed because the sequence most contain at least two elements.");
+                throw new ArgumentException("Adding failed because sequence cannot contain a single node.");
 
             for (var i = 0; i < nodes.Length-1; i++)
             {
