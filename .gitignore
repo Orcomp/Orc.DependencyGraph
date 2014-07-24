@@ -6,6 +6,8 @@
 *.user
 *.sln.docstates
 
+.nuget/
+
 # Build results
 [Bb]in/
 [Cc]lientbin/
