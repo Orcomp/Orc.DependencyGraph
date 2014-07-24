@@ -8,7 +8,7 @@
     <owners>Orcomp</owners>
 
 	<description>
-    A helper library to **navigate** a directed acyclic graph (DAG).
+    A helper library to navigate a directed acyclic graph (DAG).
   </description>
 	<summary>
 	</summary>

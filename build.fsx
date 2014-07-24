@@ -6,13 +6,13 @@ open System.Linq
 open System.Text
 open System.Text.RegularExpressions
 open Fake
-open Fake.MSTest
+open Fake.NUnitCommon
 
 // --------------------------------------------------------------------------------------
 // Definitions
 
 let binProjectName = "Orc.DependencyGraph"
-let netVersions = ["NET45"]
+let netVersions = ["NET40"]
 
 let srcDir  = @".\src\"
 let deploymentDir  = @".\deployment\"
@@ -46,9 +46,11 @@ let outputBinFiles = !! (outputBinDir @@ @"\**\*.*")
                             -- ignoreBinFilesPattern
 
 let tests = srcDir @@ @"\**\*Tests.csproj" 
+let performanceTests = srcDir @@ @"\**\*PerformanceTests.csproj" 
 let allProjects = srcDir @@ @"\**\*.csproj" 
 
-let testProjects  = !! tests
+let testProjects  = !! tests 
+                        -- performanceTests
 let otherProjects = !! allProjects
                         -- tests
 
@@ -109,22 +111,32 @@ Target "BuildTests" (fun _ ->
 // --------------------------------------------------------------------------------------
 // Run tests
 
+//Target "RunTests" (fun _ ->
+//    ActivateFinalTarget "CloseMSTestRunner"
+//    CleanDir testResultsDir
+//    CreateDir testResultsDir
+//
+//    !! (outputDir + @"\**\*Tests.dll") 
+//    ++ (srcDir + @"\**\bin\Release\*Tests.dll") 
+//      |> MSTest (fun p ->
+//                  { p with 
+//                     TimeOut = TimeSpan.FromMinutes 20. 
+//                     ResultsDir = testResultsDir})
+//)
+//
+//FinalTarget "CloseMSTestRunner" (fun _ ->  
+//    ProcessHelper.killProcess "mstest.exe"
+//)
+let allTestDlls = outputDir @@ @"\**\*Tests.dll" 
+let performanceTestDlls = outputDir @@ @"\**\*PerformanceTests.dll" 
+let testDlls  = !! allTestDlls
+                   -- performanceTestDlls
+
 Target "RunTests" (fun _ ->
-    ActivateFinalTarget "CloseMSTestRunner"
-    CleanDir testResultsDir
-    CreateDir testResultsDir
+    testDlls
+      |> NUnit (fun p -> { p with ErrorLevel = DontFailBuild })
+    )
 
-    !! (outputDir + @"\**\*Tests.dll") 
-    ++ (srcDir + @"\**\bin\Release\*Tests.dll") 
-      |> MSTest (fun p ->
-                  { p with 
-                     TimeOut = TimeSpan.FromMinutes 20. 
-                     ResultsDir = testResultsDir})
-)
-
-FinalTarget "CloseMSTestRunner" (fun _ ->  
-    ProcessHelper.killProcess "mstest.exe"
-)
 
 // --------------------------------------------------------------------------------------
 // Build a NuGet package
@@ -224,7 +236,8 @@ Target "Release" DoNothing
 //RunTargetOrDefault "BuildOtherProjects"
 //RunTargetOrDefault "BuildTests"
 //RunTargetOrDefault "NuGet"
-RunTargetOrDefault "Release"
+//RunTargetOrDefault "Release"
+RunTargetOrDefault "RunTests"
 
 
 
