@@ -3,13 +3,13 @@
   <metadata>
     <id>Orc.DependencyGraph</id>
     <version>@build.number@</version>
-	<title>Orc DependencyGraph</title>
+	<title>Orc.DependencyGraph</title>
     <authors>Orcomp</authors>
     <owners>Orcomp</owners>
 
 	<description>
     A helper library to navigate a directed acyclic graph (DAG).
-  </description>
+    </description>
 	<summary>
 	</summary>
 	

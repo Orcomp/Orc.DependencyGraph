@@ -15,10 +15,9 @@
 
 #Folders must exist: 
 src/
-doc/
+docs/
 tools/
 output/
-src/
 
 #Folders must not exist: 
 !**/bin/
