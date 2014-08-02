@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Orc.Sort">
-      <HintPath>..\..\lib\Orc.Sort.1.2014.08.02\lib\NET40\Orc.Sort.dll</HintPath>
+      <HintPath>..\..\lib\Orc.Sort.1.2014.08.03\lib\NET40\Orc.Sort.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
