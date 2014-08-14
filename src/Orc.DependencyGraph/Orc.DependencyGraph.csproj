@@ -18,23 +18,26 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\output\Debug\NET40\Orc.DependencyGraph\</OutputPath>
+    <OutputPath>..\..\output\debug\Orc.DependencyGraph\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>true</UseVSHostingProcess>
+    <DocumentationFile>..\..\output\debug\Orc.DependencyGraph\Orc.DependencyGraph.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\output\Release\NET40\Orc.DependencyGraph\</OutputPath>
+    <OutputPath>..\..\output\release\Orc.DependencyGraph\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\output\release\Orc.DependencyGraph\Orc.DependencyGraph.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Orc.Sort">
-      <HintPath>..\..\lib\Orc.Sort.1.2014.08.03\lib\NET40\Orc.Sort.dll</HintPath>
+    <Reference Include="Orc.Sort, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Orc.Sort.2.0.0-unstable0007\lib\net40\Orc.Sort.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

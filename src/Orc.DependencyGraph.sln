@@ -1,24 +1,28 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orc.DependencyGraph", "Orc.DependencyGraph\Orc.DependencyGraph.csproj", "{DF5E12B3-3765-4D82-86D6-2B7121432B0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orc.DependencyGraphTests", "Orc.DependencyGraphTests\Orc.DependencyGraphTests.csproj", "{5DA1D7A5-DE18-44B5-89C9-9EB43ACF191D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orc.DependencyGraph.Test", "Orc.DependencyGraph.Test\Orc.DependencyGraph.Test.csproj", "{5DA1D7A5-DE18-44B5-89C9-9EB43ACF191D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orc.DependencyGraphPerformanceTests", "Orc.DependencyGraphPerformanceTests\Orc.DependencyGraphPerformanceTests.csproj", "{1B846C6E-7C93-48DF-8077-7FC828F1B35B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orc.DependencyGraph.PerformanceTest", "Orc.DependencyGraph.PerformanceTest\Orc.DependencyGraph.PerformanceTest.csproj", "{1B846C6E-7C93-48DF-8077-7FC828F1B35B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{4CF9D581-18BE-46FC-A5D1-3D101BE52733}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{4CF9D581-18BE-46FC-A5D1-3D101BE52733}"
 	ProjectSection(SolutionItems) = preProject
-		..\build.bat = ..\build.bat
-		..\build.fsx = ..\build.fsx
-		..\clean.bat = ..\clean.bat
 		..\LICENSE = ..\LICENSE
-		..\deployment\templates\Orc.DependencyGraph.nuspec = ..\deployment\templates\Orc.DependencyGraph.nuspec
-		..\publish.bat = ..\publish.bat
+		nuget.config = nuget.config
+		Orc.DependencyGraph.sln.DotSettings = Orc.DependencyGraph.sln.DotSettings
 		..\Readme.md = ..\Readme.md
-		..\version.txt = ..\version.txt
+		SolutionAssemblyInfo.cs = SolutionAssemblyInfo.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3AC96DE2-9900-47CA-9BF5-F5BB9E96A70E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{AB879EF3-148C-4818-9178-E8E0F31DFD9F}"
+	ProjectSection(SolutionItems) = preProject
+		..\lib\repositories.config = ..\lib\repositories.config
 	EndProjectSection
 EndProject
 Global
@@ -42,5 +46,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DF5E12B3-3765-4D82-86D6-2B7121432B0E} = {3AC96DE2-9900-47CA-9BF5-F5BB9E96A70E}
+		{5DA1D7A5-DE18-44B5-89C9-9EB43ACF191D} = {3AC96DE2-9900-47CA-9BF5-F5BB9E96A70E}
+		{1B846C6E-7C93-48DF-8077-7FC828F1B35B} = {3AC96DE2-9900-47CA-9BF5-F5BB9E96A70E}
 	EndGlobalSection
 EndGlobal

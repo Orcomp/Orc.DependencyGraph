@@ -7,18 +7,14 @@
 
 // All other assembly info is defined in SharedAssembly.cs
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Orc.DependencyGraph")]
-[assembly: AssemblyProduct("Orc.DependencyGraph")]
-[assembly: AssemblyDescription("Orc.DependencyGraph library")]
+[assembly: AssemblyTitle("Orc.DependencyGraph.PerformanceTest")]
+[assembly: AssemblyProduct("Orc.DependencyGraph.PerformanceTest")]
+[assembly: AssemblyDescription("Orc.DependencyGraph.PerformanceTest library")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
 
 [assembly: ComVisible(false)]
-
-[assembly: InternalsVisibleTo("Orc.DependencyGraph.Test")]
-[assembly: InternalsVisibleTo("Orc.DependencyGraph.PerformanceTest")]
