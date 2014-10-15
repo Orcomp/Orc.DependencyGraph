@@ -354,18 +354,44 @@
 
         void IInternalGraph<T>.ToFile(string filePath)
         {
+            var namesDictionary = new Dictionary<string, int>();
+
+            var getId = new Func<T, int>(node =>
+            {
+                var nodeKey = node.ToString();
+                if (namesDictionary.ContainsKey(nodeKey)) return namesDictionary[nodeKey];
+                var newId = namesDictionary.Count;
+                namesDictionary[nodeKey] = newId;
+                return newId;
+            });
+            // export Edges
             var sb = new StringBuilder();
             sb.AppendLine("From,To");
 
             foreach (var edge in (this as IInternalGraph<T>).Edges)
             {
-                sb.AppendLine(edge[0].Value + "," + edge[1].Value);
+                sb.AppendLine(getId(edge[0].Value) + "," + getId(edge[1].Value));
             }
 
             sb.Length--;
             sb.Length--;
 
             File.WriteAllText(filePath, sb.ToString());
+
+            // export Node names
+            var sb1 = new StringBuilder();
+            sb1.AppendLine("ID,Property,Value");
+
+            foreach (var node in namesDictionary)
+            {
+                sb1.AppendLine(node.Value + ",Order," + node.Key);
+            }
+
+            sb1.Length--;
+            sb1.Length--;
+
+            var propertiesPath = Path.Combine(Directory.GetParent(filePath).FullName, "Properties.csv");
+            File.WriteAllText(propertiesPath, sb1.ToString());
         }
     }
 }
