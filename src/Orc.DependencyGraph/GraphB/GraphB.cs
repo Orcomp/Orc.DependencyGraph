@@ -175,6 +175,17 @@ namespace Orc.DependencyGraph.GraphB
 
             return new OrderedEnumerable<INode<T>>(() => this.graphSort);
         }
+
+        public IEnumerable<INode<T>> GetRootNodes()
+        {
+            return GetNodes(0);
+        }
+
+        public IEnumerable<INode<T>> GetLeafNodes()
+        {
+            return GetNodes(this.levelList.Max());
+        }
+
         /*
         protected override int NodeKey(T node)
         {

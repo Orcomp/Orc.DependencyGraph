@@ -324,6 +324,16 @@
             return new OrderedEnumerable<INode<T>>(this.SortInternal);
         }
 
+        public IEnumerable<INode<T>> GetRootNodes()
+        {
+            return GetNodes(0);
+        }
+
+        public IEnumerable<INode<T>> GetLeafNodes()
+        {
+            return GetNodes(CountLevels - 1);
+        }
+
         private IEnumerable<INode<T>> SortInternal()
         {
             var inDegree = new Dictionary<T, int>(this._nodes.Count);

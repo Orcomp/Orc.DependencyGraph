@@ -242,9 +242,22 @@ namespace Orc.DependencyGraphTests
         public void GetNodesReturnsNodesOnTheLevel(int level, int[] expectedNodes)
         {
             var graph = GraphTestHelper.CreateExampleGraph(TargetGraph);
-            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedNodes,
-                graph.GetNodes(level));
+            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedNodes, graph.GetNodes(level));
             GraphTestHelper.AssertNodesAreOrderedByLevel(graph.GetNodes(level));
+        }
+
+        [TestCase(new[] { 11, 12 })]
+        public void GetRootNodesReturnsNodesOnZeroLevel(int[] expectedNodes)
+        {
+            var graph = GraphTestHelper.CreateExampleGraph(TargetGraph);
+            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedNodes, graph.GetRootNodes());
+        }
+
+        [TestCase(new[] { 61, 62 })]
+        public void GetLeafNodesReturnsNodesOnLastLevel(int[] expectedNodes)
+        {
+            var graph = GraphTestHelper.CreateExampleGraph(TargetGraph);
+            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedNodes, graph.GetLeafNodes());
         }
 
         [TestCase(0, 1, new[] { 11, 12, 21, 22, 23, 24, 25, 26, 27})]
@@ -254,8 +267,7 @@ namespace Orc.DependencyGraphTests
         public void GetNodesWithBetweenReturnsNodesOnTheLevelsInTheRange(int levelFrom, int levelTo, int[] expectedNodes)
         {
             var graph = GraphTestHelper.CreateExampleGraph(TargetGraph);
-            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedNodes,
-                graph.GetNodesBetween(levelFrom, levelTo));
+            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedNodes, graph.GetNodesBetween(levelFrom, levelTo));
             GraphTestHelper.AssertNodesAreOrderedByLevel(graph.GetNodesBetween(levelFrom, levelTo));
         }
         [Test]

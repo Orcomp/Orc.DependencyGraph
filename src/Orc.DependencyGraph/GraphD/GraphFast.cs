@@ -356,7 +356,17 @@
         public DependencyGraph.IOrderedEnumerable<INode<T>> Sort()
         {
             return new OrderedEnumerable<INode<T>>(this.InternalSort);
-        } 
+        }
+
+        public IEnumerable<INode<T>> GetRootNodes()
+        {
+            return GetNodes(0);
+        }
+
+        public IEnumerable<INode<T>> GetLeafNodes()
+        {
+            return GetNodes(CountLevels - 1);
+        }
 
         private IEnumerable<INode<T>> InternalSort()
         {

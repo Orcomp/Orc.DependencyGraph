@@ -101,12 +101,10 @@ namespace Orc.DependencyGraphTests
 
             foreach (var node in nodes)
             {
-                Assert.IsTrue(expectedNodes.Contains(node.Value),
-                    "Expected result does not contain node {0}", node.Value);
+                Assert.IsTrue(expectedNodes.Contains(node.Value), "Expected result does not contain node {0}", node.Value);
                 count++;
             }
-            Assert.AreEqual(count, expectedNodes.Count,
-                "Node count expected to be {0}, but was {1}", expectedNodes.Count, count);
+            Assert.AreEqual(expectedNodes.Count, count, "Node count expected to be {0}, but was {1}", expectedNodes.Count, count);
         }
 
         public static void AssertNodesAreOrderedByLevel(IEnumerable<INode<int>> orderedNodes)

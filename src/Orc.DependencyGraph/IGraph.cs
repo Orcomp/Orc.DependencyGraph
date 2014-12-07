@@ -86,5 +86,15 @@ namespace Orc.DependencyGraph
         /// <returns>An IOrderedEnumerable whose elements are sorted in topological order</returns>
         /// <exception cref="TopologicalSortException">The graph cannot be sorted in topological order (i.e. contains loops)</exception>
         IOrderedEnumerable<INode<T>> Sort();
+
+        /// <summary>
+        /// Returns nodes on the 0 level of the Graph
+        /// </summary>
+        IEnumerable<INode<T>> GetRootNodes();
+
+        /// <summary>
+        /// Returns nodes on the last level of the Graph
+        /// </summary>
+        IEnumerable<INode<T>> GetLeafNodes();
     }
 }

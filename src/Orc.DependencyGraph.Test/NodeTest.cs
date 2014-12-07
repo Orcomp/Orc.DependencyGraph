@@ -18,11 +18,7 @@
             TargetGraph = targetGenericGraph.MakeGenericType(typeof(int));
         }
 
-        private Type TargetGraph
-        {
-            get;
-            set;
-        }
+        private Type TargetGraph { get; set; }
 
         [TestCase( 11, 0)]
         [TestCase( 25, 1)]
@@ -65,8 +61,7 @@
         public void GetNeighboursReturnsNeighboursOfTheNodeInTheRangeOfLevels(int node, int[] expectedNeighbours)
         {
             var graph = GraphTestHelper.CreateExampleGraph(TargetGraph);
-            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedNeighbours,
-                graph.Find(node).GetNeighbours(-1, 2));
+            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedNeighbours, graph.Find(node).GetNeighbours(-1, 2));
             GraphTestHelper.AssertNodesAreOrderedByLevel(graph.Find(node).GetNeighbours(-1, 2));
         }
 
@@ -75,8 +70,7 @@
         public void PrecedentsReturnsPrecedentsOfTheNode(int node, int[] expectedPrecedents)
         {
             var graph = GraphTestHelper.CreateExampleGraph(TargetGraph);
-            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedPrecedents,
-                graph.Find(node).Precedents);
+            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedPrecedents, graph.Find(node).Precedents);
             GraphTestHelper.AssertNodesAreOrderedByLevel(graph.Find(node).Precedents);
         }
 
@@ -85,8 +79,7 @@
         public void DescendantsReturnsDescendantsOfTheNode(int node, int[] expectedDescendants)
         {
             var graph = GraphTestHelper.CreateExampleGraph(TargetGraph);
-            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedDescendants,
-                graph.Find(node).Descendants);
+            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedDescendants, graph.Find(node).Descendants);
             GraphTestHelper.AssertNodesAreOrderedByLevel(graph.Find(node).Descendants);
         }
 
@@ -95,8 +88,7 @@
         public void ImmediatePrecedentsReturnsPrecedentsOfTheNodeOnThePreviousLevel(int node, int[] expectedImmediatePrecedents)
         {
             var graph = GraphTestHelper.CreateExampleGraph(TargetGraph);
-            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedImmediatePrecedents,
-                graph.Find(node).ImmediatePrecedents);
+            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedImmediatePrecedents, graph.Find(node).ImmediatePrecedents);
             GraphTestHelper.AssertNodesAreOrderedByLevel(graph.Find(node).ImmediatePrecedents);
         }
 
@@ -105,8 +97,7 @@
         public void ImmediateDescendantsReturnsDescendantsOfTheNodeOnTheNextLevel(int node, int[] expectedImmediateDescendants)
         {
             var graph = GraphTestHelper.CreateExampleGraph(TargetGraph);
-            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedImmediateDescendants,
-                graph.Find(node).ImmediateDescendants);
+            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedImmediateDescendants, graph.Find(node).ImmediateDescendants);
             GraphTestHelper.AssertNodesAreOrderedByLevel(graph.Find(node).ImmediateDescendants);
         }
 
@@ -116,8 +107,7 @@
         public void TerminatingPrecedentsReturnsPrecedentsOfTheNodeOnTheZeroLevel(int node, int[] expectedTerminatingPrecedents)
         {
             var graph = GraphTestHelper.CreateExampleGraph(TargetGraph);
-            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedTerminatingPrecedents,
-                graph.Find(node).TerminatingPrecedents);
+            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedTerminatingPrecedents, graph.Find(node).TerminatingPrecedents);
             GraphTestHelper.AssertNodesAreOrderedByLevel(graph.Find(node).TerminatingPrecedents);
         }
 
@@ -127,8 +117,7 @@
         public void TerminatingDescendantsReturnsDescendantsOfTheNodeOnTheLastLevel(int node, int[] expectedTerminatingDescendants)
         {
             var graph = GraphTestHelper.CreateExampleGraph(TargetGraph);
-            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedTerminatingDescendants,
-                graph.Find(node).TerminatingDescendants);
+            GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedTerminatingDescendants, graph.Find(node).TerminatingDescendants);
             GraphTestHelper.AssertNodesAreOrderedByLevel(graph.Find(node).TerminatingDescendants);
         }
     }
