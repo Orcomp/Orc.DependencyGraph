@@ -118,11 +118,16 @@ namespace Orc.DependencyGraphTests
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Adding failed because sequence cannot contain a single node.")]
-        public void SingleSequenceCannotBeAdded()
+        public void SingleNodeSequenceIsAllowed()
         {
             var graph = GraphTestHelper.CreateEmptyGraph(TargetGraph);
-            graph.AddSequence(new[]{1});
+            graph.AddSequence(new[] {1});
+            GraphTestHelper.AssertCollectionsConsistsOfNodes(new[] {1}, graph.GetRootNodes());
+            GraphTestHelper.AssertCollectionsConsistsOfNodes(new[] {1}, graph.GetLeafNodes());
+            GraphTestHelper.AssertConsistsOfSequences(graph, new[]
+            {
+                new[] {1},
+            });
         }
 
         [Test]

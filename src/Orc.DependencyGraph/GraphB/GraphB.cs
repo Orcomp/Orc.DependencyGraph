@@ -52,11 +52,6 @@ namespace Orc.DependencyGraph.GraphB
                 throw new ArgumentException("Adding failed because sequence cannot be empty.");
             }
 
-            if (sequence_count == 1)
-            {
-                throw new ArgumentException("Adding failed because sequence cannot contain a single node.");
-            }
-
             base.Add(sequence);
 
             int node_level = -1;
@@ -72,6 +67,11 @@ namespace Orc.DependencyGraph.GraphB
                 }
 
                 node_level = this.levelList[key];
+            }
+
+            if (sequence_count == 1)
+            {
+                return;
             }
 
             int key_next = 0;

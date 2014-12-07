@@ -131,9 +131,6 @@
                 .Select(publicNode => this.GetOrCreateNode(publicNode))
                 .ToArray();
 
-            if (nodes.Length == 1)
-                throw new ArgumentException("Adding failed because sequence cannot contain a single node.");
-
             for (var i = 0; i < nodes.Length-1; i++)
             {
                 this.AddEdge(source: nodes[i], destination: nodes[i + 1]);

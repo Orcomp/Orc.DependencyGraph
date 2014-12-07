@@ -118,9 +118,6 @@
                 .Select(publicNode => (INode<T>)this.GetOrCreateNode(publicNode))
                 .ToList();
 
-            if (nodes.Count == 1)
-                throw new ArgumentException("Adding failed because sequence cannot contain a single node.");
-
             for (var i = 0; i < nodes.Count-1; i++)
             {
                 var src = nodes[i];
