@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orc.DependencyGraph", "Orc.DependencyGraph\Orc.DependencyGraph.csproj", "{DF5E12B3-3765-4D82-86D6-2B7121432B0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orc.DependencyGraph.Test", "Orc.DependencyGraph.Test\Orc.DependencyGraph.Test.csproj", "{5DA1D7A5-DE18-44B5-89C9-9EB43ACF191D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orc.DependencyGraph.Tests", "Orc.DependencyGraph.Tests\Orc.DependencyGraph.Tests.csproj", "{5DA1D7A5-DE18-44B5-89C9-9EB43ACF191D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orc.DependencyGraph.PerformanceTest", "Orc.DependencyGraph.PerformanceTest\Orc.DependencyGraph.PerformanceTest.csproj", "{1B846C6E-7C93-48DF-8077-7FC828F1B35B}"
 EndProject
@@ -23,6 +23,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{AB879EF3-148C-4818-9178-E8E0F31DFD9F}"
 	ProjectSection(SolutionItems) = preProject
 		..\lib\repositories.config = ..\lib\repositories.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DC6FFEF1-1616-405E-8D31-E14728A9DD50}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
 Global

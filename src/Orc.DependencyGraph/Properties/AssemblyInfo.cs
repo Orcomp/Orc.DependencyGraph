@@ -20,5 +20,5 @@ using System.Runtime.InteropServices;
 
 [assembly: ComVisible(false)]
 
-[assembly: InternalsVisibleTo("Orc.DependencyGraph.Test")]
+[assembly: InternalsVisibleTo("Orc.DependencyGraph.Tests")]
 [assembly: InternalsVisibleTo("Orc.DependencyGraph.PerformanceTest")]
