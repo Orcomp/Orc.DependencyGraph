@@ -83,20 +83,25 @@
             GraphTestHelper.AssertNodesAreOrderedByLevel(graph.Find(node).Descendants);
         }
 
+        [TestCase(26, new int[] { })]
+        [TestCase(61, new[] { 51 })]
+        [TestCase(27, new[] { 11, 12 })]
         [TestCase(32, new[] { 25, 26, 27 })]
-        [TestCase(51, new[] { 41, 42, 43, 44, 45, 46 })]
-        public void ImmediatePrecedentsReturnsPrecedentsOfTheNodeOnThePreviousLevel(int node, int[] expectedImmediatePrecedents)
+        [TestCase(51, new[] { 41, 42, 43, 44, 45, 46, 31 })]
+        public void ImmediatePrecedentsReturnsParentsOfTheNode(int node, int[] expectedImmediatePrecedents)
         {
-            var graph = GraphTestHelper.CreateExampleGraph(TargetGraph);
+            var graph = GraphTestHelper.CreateExampleGraph_ForImmediateTests(TargetGraph);
             GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedImmediatePrecedents, graph.Find(node).ImmediatePrecedents);
             GraphTestHelper.AssertNodesAreOrderedByLevel(graph.Find(node).ImmediatePrecedents);
         }
 
-        [TestCase(31, new[] { 41, 42, 43 })]
+        [TestCase(62, new int [] {  })]
+        [TestCase(27, new[] { 32 })]
+        [TestCase(31, new[] { 41, 42, 43, 51})]
         [TestCase(51, new[] { 61, 62 })]
-        public void ImmediateDescendantsReturnsDescendantsOfTheNodeOnTheNextLevel(int node, int[] expectedImmediateDescendants)
+        public void ImmediateDescendantsReturnsChildrenOfTheNode(int node, int[] expectedImmediateDescendants)
         {
-            var graph = GraphTestHelper.CreateExampleGraph(TargetGraph);
+            var graph = GraphTestHelper.CreateExampleGraph_ForImmediateTests(TargetGraph);
             GraphTestHelper.AssertCollectionsConsistsOfNodes(expectedImmediateDescendants, graph.Find(node).ImmediateDescendants);
             GraphTestHelper.AssertNodesAreOrderedByLevel(graph.Find(node).ImmediateDescendants);
         }

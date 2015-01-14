@@ -46,6 +46,20 @@ namespace Orc.DependencyGraphTests
             });
             return graph;
         }
+        
+        public static IGraph<int> CreateExampleGraph_ForImmediateTests(Type type)
+        {
+            // this example contains difficult cases:
+            // - children of node 31 are on different levels
+            // - parents of node 51 are on different levels
+            var graph = CreateExampleGraph(type);
+
+            graph.AddSequences(new[]
+            {
+                new[] {31, 51},
+            });
+            return graph;
+        }
 
         public static IGraph<int> CreateSimpleGraph(Type type)
         {

@@ -42,15 +42,13 @@ namespace Orc.DependencyGraph
         /// </summary>
         IOrderedEnumerable<INode<T>> Descendants { get; }
 
-        //  relativeLevel == relativeLevel - 1
         /// <summary>
-        /// Finds immediate precedents of the node (i.e. nodes on the previous level)
+        /// Finds immediate precedents of the node (i.e. parents)
         /// </summary>
         IOrderedEnumerable<INode<T>> ImmediatePrecedents { get; }
 
-        //  relativeLevel == relativeLevel + 1
         /// <summary>
-        /// Finds immediate descendants (i.e. nodes on the next level)
+        /// Finds immediate descendants (i.e. children)
         /// </summary>
         IOrderedEnumerable<INode<T>> ImmediateDescendants { get; }
 

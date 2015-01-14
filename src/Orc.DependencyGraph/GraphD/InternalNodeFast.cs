@@ -88,8 +88,7 @@ namespace Orc.DependencyGraph.GraphD
         {
             get
             {
-                return new OrderedEnumerable<INode<T>>(
-                    () => this._graph.GetPrecedents(this, (_ => _.Level == this.Level - 1)));
+                return new OrderedEnumerable<INode<T>>(() => this.Parents.OrderBy(x => x.Level));
             }
         }
 
@@ -97,8 +96,7 @@ namespace Orc.DependencyGraph.GraphD
         {
             get
             {
-                return new OrderedEnumerable<INode<T>>(
-                    () => this._graph.GetDescendants(this, (_ => _.Level == this.Level + 1)));
+                return new OrderedEnumerable<INode<T>>(() => this.Edges.OrderBy(x => x.Level));
             }
         }
 
