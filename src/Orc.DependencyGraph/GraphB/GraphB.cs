@@ -243,21 +243,21 @@ namespace Orc.DependencyGraph.GraphB
                 }
             }
 
-            // relativeLevel == relativeLevel - 1
+            // parents
             public IOrderedEnumerable<INode<N>> ImmediatePrecedents
             {
                 get
                 {
-                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetPrecedents(this.key, true, false).Select(i => this.Graph.graphList[i]));
+                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetPrecedents(this.key, true, false).OrderBy(i => this.Graph.levelList[i]).Select(i => this.Graph.graphList[i]));
                 }
             }
 
-            // relativeLevel == relativeLevel + 1
+            // children
             public IOrderedEnumerable<INode<N>> ImmediateDescendants
             {
                 get
                 {
-                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetDependents(this.key, true, false).Select(i => this.Graph.graphList[i]));
+                    return new OrderedEnumerable<INode<N>>(() => this.Graph.GetDependents(this.key, true, false).OrderBy(i => this.Graph.levelList[i]).Select(i => this.Graph.graphList[i]));
                 }
             }
 
