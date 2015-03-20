@@ -40,7 +40,7 @@
 
         public int ReferenceRelativeLevel { get; set; }
 
-        public DependencyGraph.IOrderedEnumerable<INode<T>> GetNeighbours(int relativeLevelFrom, int relativeLevelTo)
+        public IOrderedEnumerable<INode<T>> GetNeighbours(int relativeLevelFrom, int relativeLevelTo)
         {
             return new OrderedEnumerable<INode<T>>(() => this.GetNeighboursInternal(relativeLevelFrom, relativeLevelTo));
         }
@@ -61,7 +61,7 @@
             }
         }
 
-        public DependencyGraph.IOrderedEnumerable<INode<T>> Precedents
+        public IOrderedEnumerable<INode<T>> Precedents
         {
             get
             {
@@ -70,7 +70,7 @@
             }
         }
 
-        public DependencyGraph.IOrderedEnumerable<INode<T>> Descendants
+        public IOrderedEnumerable<INode<T>> Descendants
         {
             get
             {
@@ -78,7 +78,7 @@
             }
         }
 
-        public DependencyGraph.IOrderedEnumerable<INode<T>> ImmediatePrecedents
+        public IOrderedEnumerable<INode<T>> ImmediatePrecedents
         {
             get
             {
@@ -86,7 +86,7 @@
             }
         }
 
-        public DependencyGraph.IOrderedEnumerable<INode<T>> ImmediateDescendants
+        public IOrderedEnumerable<INode<T>> ImmediateDescendants
         {
             get
             {
@@ -94,7 +94,7 @@
             }
         }
 
-        public DependencyGraph.IOrderedEnumerable<INode<T>> TerminatingPrecedents
+        public IOrderedEnumerable<INode<T>> TerminatingPrecedents
         {
             get
             {
@@ -102,7 +102,7 @@
             }
         }
 
-        public DependencyGraph.IOrderedEnumerable<INode<T>> TerminatingDescendants
+        public IOrderedEnumerable<INode<T>> TerminatingDescendants
         {
             get
             {

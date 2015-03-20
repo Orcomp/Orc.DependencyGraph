@@ -259,7 +259,7 @@
             return internalNodes.Max(_ => _.ReferenceRelativeLevel);
         }
 
-        public DependencyGraph.IOrderedEnumerable<INode<T>> GetNodes(int level)
+        public IOrderedEnumerable<INode<T>> GetNodes(int level)
         {
             return new OrderedEnumerable<INode<T>>(() => this.GetNodesInternal(level));
         }
@@ -335,7 +335,7 @@
             }
         }
 
-        public DependencyGraph.IOrderedEnumerable<INode<T>> GetNodesBetween(int levelFrom, int levelTo)
+        public IOrderedEnumerable<INode<T>> GetNodesBetween(int levelFrom, int levelTo)
         {
             return new OrderedEnumerable<INode<T>>(() => this.GetNodesBetweenInternal(levelFrom, levelTo));
         }
@@ -350,7 +350,7 @@
         /// Returns nodes in topological order
         /// </summary>
         /// <returns></returns>
-        public DependencyGraph.IOrderedEnumerable<INode<T>> Sort()
+        public IOrderedEnumerable<INode<T>> Sort()
         {
             return new OrderedEnumerable<INode<T>>(this.InternalSort);
         }

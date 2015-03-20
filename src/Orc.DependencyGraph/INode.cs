@@ -2,6 +2,8 @@
 
 namespace Orc.DependencyGraph
 {
+    using System.Linq;
+
     /*
      * Precedents   - parents
      * Descendants  - children

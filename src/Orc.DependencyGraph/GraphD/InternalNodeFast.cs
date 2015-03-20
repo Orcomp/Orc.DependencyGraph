@@ -44,7 +44,7 @@ namespace Orc.DependencyGraph.GraphD
 
         public int ReferenceRelativeLevel { get; set; }
 
-        public DependencyGraph.IOrderedEnumerable<INode<T>> GetNeighbours(int relativeLevelFrom, int relativeLevelTo)
+        public IOrderedEnumerable<INode<T>> GetNeighbours(int relativeLevelFrom, int relativeLevelTo)
         {
             return new OrderedEnumerable<INode<T>>(() => this.GetNeighboursInternal(relativeLevelFrom, relativeLevelTo));
         }
@@ -66,7 +66,7 @@ namespace Orc.DependencyGraph.GraphD
             }
         }
 
-        public DependencyGraph.IOrderedEnumerable<INode<T>> Precedents
+        public IOrderedEnumerable<INode<T>> Precedents
         {
             get
             {
@@ -75,7 +75,7 @@ namespace Orc.DependencyGraph.GraphD
             }
         }
 
-        public DependencyGraph.IOrderedEnumerable<INode<T>> Descendants
+        public IOrderedEnumerable<INode<T>> Descendants
         {
             get
             {
@@ -84,7 +84,7 @@ namespace Orc.DependencyGraph.GraphD
             }
         }
 
-        public DependencyGraph.IOrderedEnumerable<INode<T>> ImmediatePrecedents
+        public IOrderedEnumerable<INode<T>> ImmediatePrecedents
         {
             get
             {
@@ -92,7 +92,7 @@ namespace Orc.DependencyGraph.GraphD
             }
         }
 
-        public DependencyGraph.IOrderedEnumerable<INode<T>> ImmediateDescendants
+        public IOrderedEnumerable<INode<T>> ImmediateDescendants
         {
             get
             {
@@ -100,7 +100,7 @@ namespace Orc.DependencyGraph.GraphD
             }
         }
 
-        public DependencyGraph.IOrderedEnumerable<INode<T>> TerminatingPrecedents
+        public IOrderedEnumerable<INode<T>> TerminatingPrecedents
         {
             get
             {
@@ -109,7 +109,7 @@ namespace Orc.DependencyGraph.GraphD
             }
         }
 
-        public DependencyGraph.IOrderedEnumerable<INode<T>> TerminatingDescendants
+        public IOrderedEnumerable<INode<T>> TerminatingDescendants
         {
             get
             {

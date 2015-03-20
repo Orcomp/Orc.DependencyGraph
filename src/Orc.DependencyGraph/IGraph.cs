@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace Orc.DependencyGraph
 {
+    using System.Linq;
+
     public interface IGraph<T>
         where T : IEquatable<T>
     {
